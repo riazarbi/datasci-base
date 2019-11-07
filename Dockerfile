@@ -5,6 +5,10 @@ FROM $BASE_CONTAINER
 LABEL authors="Riaz Arbi,Gordon Inggs"
 
 # BASE ==========================================
+
+# Set the timezone
+ENV TZ="Africa/Johannesburg"
+
 # Let's make it a bit more functional
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get clean && \
@@ -47,12 +51,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     libssl1.0.0 \
     gnupg \
     apt-transport-https \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
-# Set the timezone
-ENV TZ="Africa/Johannesburg"
-RUN echo $TZ > /etc/timezone \
+ && echo $TZ > /etc/timezone \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y tzdata \
@@ -61,9 +60,8 @@ RUN echo $TZ > /etc/timezone \
  && dpkg-reconfigure -f noninteractive tzdata \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
-
 # Define en_ZA
-RUN DEBIAN_FRONTEND=noninteractive \
+ && DEBIAN_FRONTEND=noninteractive \
     locale-gen en_ZA && \
     locale-gen en_ZA.UTF-8 && \
     dpkg-reconfigure --frontend=noninteractive locales && \
