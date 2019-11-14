@@ -59,7 +59,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && dpkg-reconfigure -f noninteractive tzdata \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
 # Define en_ZA
  && DEBIAN_FRONTEND=noninteractive \
     locale-gen en_ZA && \
