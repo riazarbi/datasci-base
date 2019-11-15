@@ -1,13 +1,16 @@
 # Lock to a particular Ubuntu image
-ARG BASE_CONTAINER=ubuntu:bionic-20190612@sha256:9b1702dcfe32c873a770a32cfd306dd7fc1c4fd134adfb783db68defc8894b3c
-FROM $BASE_CONTAINER
-
+FROM ubuntu:bionic-20190612@sha256:9b1702dcfe32c873a770a32cfd306dd7fc1c4fd134adfb783db68defc8894b3c
 LABEL authors="Riaz Arbi,Gordon Inggs"
 
 # BASE ==========================================
 
 # Set the timezone
-ENV TZ="Africa/Johannesburg"
+ENV TZ="Africa/Johannesburg" \
+    LANGUAGE=en_ZA.UTF-8 \
+    LANG=en_ZA.UTF-8 \
+    LC_ALL=en_ZA.UTF-8 \
+    LC_CTYPE=en_ZA.UTF-8 \
+    LC_MESSAGES=en_ZA.UTF-8
 
 # Let's make it a bit more functional
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -66,10 +69,3 @@ RUN DEBIAN_FRONTEND=noninteractive \
     locale-gen en_ZA.UTF-8 && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale
-
-ENV LANGUAGE en_ZA.UTF-8
-ENV LANG en_ZA.UTF-8
-ENV LC_ALL en_ZA.UTF-8
-ENV LC_CTYPE en_ZA.UTF-8
-ENV LC_MESSAGES en_ZA.UTF-8
-
