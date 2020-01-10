@@ -1,5 +1,5 @@
 # Lock to a particular Ubuntu image
-FROM ubuntu:bionic-20190612@sha256:9b1702dcfe32c873a770a32cfd306dd7fc1c4fd134adfb783db68defc8894b3c
+FROM ubuntu:bionic
 LABEL authors="Riaz Arbi,Gordon Inggs"
 
 # BASE ==========================================
