@@ -6,11 +6,10 @@ LABEL authors="Riaz Arbi,Gordon Inggs"
 
 # Set the timezone
 ENV TZ="Africa/Johannesburg" \
-    LANGUAGE=en_ZA.UTF-8 \
-    LANG=en_ZA.UTF-8 \
-    LC_ALL=en_ZA.UTF-8 \
-    LC_CTYPE=en_ZA.UTF-8 \
-    LC_MESSAGES=en_ZA.UTF-8
+    LANGUAGE=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
+    TERM=xterm
 
 # Let's make it a bit more functional
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -42,7 +41,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
     bzip2 \
     ca-certificates \
     sudo \
-    locales \
     fonts-liberation \
     npm \
     libffi-dev \
@@ -53,8 +51,14 @@ RUN DEBIAN_FRONTEND=noninteractive \
     psmisc \
     libssl1.0.0 \
     gnupg \
-    apt-transport-https \
- && echo $TZ > /etc/timezone \
+    apt-transport-https 
+
+RUN locale-gen  en_US.utf8 \
+ && /usr/sbin/update-locale LANG=en_US.UTF-8 \   
+ && dpkg-reconfigure --frontend=noninteractive locales \
+ && update-locale
+
+RUN echo $TZ > /etc/timezone \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y tzdata \
@@ -62,10 +66,4 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && dpkg-reconfigure -f noninteractive tzdata \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
-# Define en_ZA
- && DEBIAN_FRONTEND=noninteractive \
-    locale-gen en_ZA && \
-    locale-gen en_ZA.UTF-8 && \
-    dpkg-reconfigure --frontend=noninteractive locales && \
-    update-locale
+ && rm -rf /var/lib/apt/lists/* 
