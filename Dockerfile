@@ -53,7 +53,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     gnupg \
     apt-transport-https \
 # Set python3 to default
-    update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+ && update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 RUN locale-gen  en_US.utf8 \
  && /usr/sbin/update-locale LANG=en_US.UTF-8 \   
