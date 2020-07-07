@@ -1,5 +1,5 @@
 # Lock to a particular Ubuntu image
-FROM ubuntu:bionic
+FROM ubuntu:focal
 LABEL authors="Riaz Arbi,Gordon Inggs"
 
 # BASE ==========================================
