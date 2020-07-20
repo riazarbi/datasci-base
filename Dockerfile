@@ -52,7 +52,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     libedit2 \
     lsb-release \
     psmisc \
-    libssl \
+    libssl1.1 \
     gnupg \
     apt-transport-https \
 # Set python3 to default
