@@ -16,6 +16,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get clean && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
     apt-get install -y \
     vim \
     nano \
@@ -35,8 +36,10 @@ RUN DEBIAN_FRONTEND=noninteractive \
     python3 \
     python3-pip \
 # Jupyter-specific
- && apt-get update \
- && apt-get install -yq --no-install-recommends \
+ && DEBIAN_FRONTEND=noninteractive \
+    apt-get update \
+ && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -yq --no-install-recommends \
     wget \
     bzip2 \
     ca-certificates \
@@ -61,7 +64,8 @@ RUN locale-gen  en_US.utf8 \
  && update-locale
 
 RUN echo $TZ > /etc/timezone \
- && apt-get update \
+ && DEBIAN_FRONTEND=noninteractive \
+    apt-get update \
  && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y tzdata \
  && rm /etc/localtime \
