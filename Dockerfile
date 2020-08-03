@@ -3,7 +3,6 @@ FROM ubuntu:focal
 LABEL authors="Riaz Arbi,Gordon Inggs"
 
 # BASE ==========================================
-
 # Set the timezone
 ENV TZ="Africa/Johannesburg" \
     LANGUAGE=en_US.UTF-8 \
