@@ -32,6 +32,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     dnsutils \
     curl \
     screen \
+    tmux \
     python3 \
     python3-pip \
 # Jupyter-specific
