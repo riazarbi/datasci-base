@@ -125,6 +125,7 @@ RUN python3 -m pip install --upgrade pip setuptools wheel \
  && python3 -m pip install pyarrow \
  && python3 -m pip install python-magic \
  && python3 -m pip install pyhive[presto] \
+ && python3 -m pip install trino \
  && python3 -m pip install presto-python-client \
  && python3 -m pip install exchangelib
  
