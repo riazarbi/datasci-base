@@ -56,7 +56,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
     gnupg \
     apt-transport-https \
 # Set python3 to default
- && update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+ && update-alternatives --install /usr/bin/python python /usr/bin/python3 1 \
+ && rm -rf /tmp/*
 
 RUN locale-gen  en_US.utf8 \
  && /usr/sbin/update-locale LANG=en_US.UTF-8 \   
@@ -71,15 +72,9 @@ RUN echo $TZ > /etc/timezone \
  && rm /etc/localtime \
  && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && dpkg-reconfigure -f noninteractive tzdata \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/* 
-
-EXPOSE 1433
 # DRIVERS =======================================================
 # JAVA
-RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive \
+ && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y \
     default-jre \
     default-jdk \
@@ -110,11 +105,11 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && rm oracle-instantclient18.3-odbc-18.3.0.0.0-1.x86_64.rpm \
  && ldconfig \
  && echo "[Oracle Driver 18.3]\nDescription=Oracle Unicode driver\nDriver=/usr/lib/oracle/18.3/client64/lib/libsqora.so.18.1\nUsageCount=1\nFileUsage=1" \
-  >> /etc/odbcinst.ini 
+  >> /etc/odbcinst.ini \
+ && rm -rf /tmp/*
 
-    # Set LD library path
+# Set LD library path
 ENV LD_LIBRARY_PATH /usr/lib/oracle/18.3/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-
 
 # PYTHON ======================================================================
 # Infrastructure-dependent prerequisites
@@ -127,6 +122,7 @@ RUN python3 -m pip install --upgrade pip setuptools wheel \
  && python3 -m pip install pyhive[presto] \
  && python3 -m pip install trino \
  && python3 -m pip install presto-python-client \
- && python3 -m pip install exchangelib
+ && python3 -m pip install exchangelib \
+ && rm -rf /tmp/*
  
  
