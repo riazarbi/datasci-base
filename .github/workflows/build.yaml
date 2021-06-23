@@ -53,7 +53,7 @@ jobs:
           git clone --single-branch --branch focal "https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/riazarbi/$DOWNSTREAM_REPO.git"
           cd "$DOWNSTREAM_REPO"
           echo "Changing the downstream repo FROM tag to $var"
-          sed -i "1s/.*/$var/" Dockerfile
+          sed -i "1s|.*|$var|" Dockerfile
           echo "Adding git commit"
           git add -A
           git commit --message "$INPUT_COMMIT_MESSAGE"
