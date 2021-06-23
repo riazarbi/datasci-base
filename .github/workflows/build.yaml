@@ -43,9 +43,10 @@ jobs:
       -
         name: Modify downstream Dockerfile
         run: |
-          var=FROM riazarbi/datasci-base:${{ fromJson(steps.gen_tag.outputs.tag) }}
+          var="FROM riazarbi/datasci-base:${{ fromJson(steps.gen_tag.outputs.tag) }}"
           DOWNSTREAM_REPO=datasci-gui-minimal
           INPUT_COMMIT_MESSAGE="Update from https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+          
           echo "Cloning destination git repository"
           git config --global user.email riazarbi@gmail.com
           git config --global user.name riazarbi.gh_ci
