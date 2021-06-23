@@ -26,9 +26,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Generate tag
+        id: gen_tag
+        run: |
+          TAG=$(printf '%(%Y%m%d)T\n' -1)
+          echo '::set-output name=tags::'$TAGS
+      -
         name: Build and push
         uses: docker/build-push-action@v2
+        needs: gen_tag
         with:
           context: .
           push: true
-          tags: riazarbi/daatsci-base:focal
+          tags: riazarbi/datatsci-base:${{ fromJson(steps.gen_tags.outputs.tags) }}
