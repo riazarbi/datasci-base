@@ -40,3 +40,19 @@ jobs:
           tags: |
               riazarbi/datasci-base:${{ fromJson(steps.gen_tag.outputs.tag) }}
               riazarbi/datasci-base:focal
+      -
+        name: Modify downstream Dockerfile
+        run: |
+          DOWNSTREAM_REPO=datasci-gui-minimal
+          INPUT_COMMIT_MESSAGE="Update from https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+          echo "Cloning destination git repository"
+          git config --global user.email riazarbi@gmail.com
+          git config --global user.name riazarbi.gh_ci
+          git clone --single-branch --branch focal "https://x-access-token:$API_TOKEN_GITHUB@github.com/riazarbi/$DOWNSTREAM_REPO.git"
+          cd "$DOWNSTREAM_REPO"
+          touch test
+          echo "Adding git commit"
+          git add -A
+          git commit --message "$INPUT_COMMIT_MESSAGE"
+          echo "Pushing git commit"
+          git push origin 
