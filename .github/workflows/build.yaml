@@ -37,4 +37,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: riazarbi/datatsci-base:${{ fromJson(steps.gen_tag.outputs.tag) }}
+          tags: riazarbi/datasci-base:${{ fromJson(steps.gen_tag.outputs.tag) }}
