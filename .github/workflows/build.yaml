@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - 'focal'
+  schedule:
+    - cron:  '20 20 20 * *'
 
 jobs:
   docker:
