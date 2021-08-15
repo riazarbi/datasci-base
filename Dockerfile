@@ -19,6 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install -y \
     vim \
     nano \
+    jq \
     htop \
     bash \
     cmake \
