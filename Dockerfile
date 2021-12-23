@@ -1,5 +1,5 @@
 # Lock to a particular Ubuntu image
-FROM ubuntu:focal-20211220
+FROM ubuntu:focal-20211006
 LABEL authors="Riaz Arbi,Gordon Inggs"
 
 # BASE ==========================================
