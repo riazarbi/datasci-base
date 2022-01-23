@@ -85,32 +85,31 @@ RUN echo $TZ > /etc/timezone \
     #unixodbc-bin \
     unixodbc \
     libaio1 \
-    alien \
+    alien 
     # Microsoft driver
- && wget https://packages.microsoft.com/keys/microsoft.asc -O microsoft.asc && \
+RUN wget https://packages.microsoft.com/keys/microsoft.asc -O microsoft.asc && \
     apt-key add microsoft.asc && \
-    wget https://packages.microsoft.com/config/ubuntu/18.04/prod.list -O prod.list && \
+    wget https://packages.microsoft.com/config/ubuntu/20.04/prod.list -O prod.list && \
     cp prod.list /etc/apt/sources.list.d/mssql-release.list && \
     apt-get update && \
     ACCEPT_EULA=Y apt-get install -y \
     msodbcsql17 \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
-    # Note: we've dropped Selenium because a better pattern is deploying a sidecar Selenium container
+ && rm -rf /var/lib/apt/lists/* 
     # Oracle driver
- && wget -q https://github.com/cityofcapetown/docker_datascience/raw/master/base/drivers/oracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm \
- && wget -q https://github.com/cityofcapetown/docker_datascience/raw/master/base/drivers/oracle-instantclient18.3-odbc-18.3.0.0.0-1.x86_64.rpm \ 
- && alien -i oracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm \
- && alien -i oracle-instantclient18.3-odbc-18.3.0.0.0-1.x86_64.rpm \
- && rm oracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm \
- && rm oracle-instantclient18.3-odbc-18.3.0.0.0-1.x86_64.rpm \
+RUN wget -q https://github.com/cityofcapetown/docker_datascience/raw/master/base/drivers/oracle-instantclient-basic-21.4.0.0.0-1.el8.x86_64.rpm \
+ && wget -q https://github.com/cityofcapetown/docker_datascience/raw/master/base/drivers/oracle-instantclient-odbc-21.4.0.0.0-1.el8.x86_64.rpm \ 
+ && alien -i oracle-instantclient-basic-21.4.0.0.0-1.el8.x86_64.rpm \
+ && alien -i oracle-instantclient-odbc-21.4.0.0.0-1.el8.x86_64.rpm \
+ && rm oracle-instantclient-basic-21.4.0.0.0-1.el8.x86_64.rpm \
+ && rm oracle-instantclient-odbc-21.4.0.0.0-1.el8.x86_64.rpm \
  && ldconfig \
- && echo "[Oracle Driver 18.3]\nDescription=Oracle Unicode driver\nDriver=/usr/lib/oracle/18.3/client64/lib/libsqora.so.18.1\nUsageCount=1\nFileUsage=1" \
+ && echo "[Oracle Driver 21.4]\nDescription=Oracle Unicode driver\nDriver=/usr/lib/oracle/21/client64/lib/libsqora.so.21.1\nUsageCount=1\nFileUsage=1" \
   >> /etc/odbcinst.ini \
  && rm -rf /tmp/*
 
 # Set LD library path
-ENV LD_LIBRARY_PATH /usr/lib/oracle/18.3/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+ENV LD_LIBRARY_PATH /usr/lib/oracle/21/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 
 # PYTHON ======================================================================
 # Infrastructure-dependent prerequisites
